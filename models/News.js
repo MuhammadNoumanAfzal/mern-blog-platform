@@ -1,31 +1,36 @@
-const mongoose = require('mongoose');
+import mongoose from "mongoose";
+import mongoosePaginate from "mongoose-paginate-v2";
+const newsSchema = new mongoose.Schema(
+  {
+    newsTitle: {
+      type: String,
+      required: true,
+    },
+    newsDescription: {
+      type: String,
+      required: true,
+    },
+    newsDate: {
+      type: Date,
+      default: Date.now,
+    },
+    newsImage: {
+      type: String,
+    },
+    category: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Category",
+      required: true,
+    },
+    author: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+  },
+  { timestamps: true },
+);
 
-const newsSchema = new mongoose.Schema({
-  newsTitle: {
-    type: String,
-    required: true
-  },
-  newsDescription: {
-    type: String,
-    required: true
-  },
-  newsDate: {
-    type: Date,
-    default: Date.now
-  },
-  newsImage: {
-    type: String
-  },
-  category: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Category',
-    required: true
-  },
-  author: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    required: true
-  }
-}, { timestamps: true });
+newsSchema.plugin(mongoosePaginate);
 
-module.exports = mongoose.model('News', newsSchema);
+export default mongoose.model("News", newsSchema);

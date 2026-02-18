@@ -51,13 +51,13 @@
     <div id="main-content">
       <div class="container">
         <div class="row">
-          <div class="col-md-8"><% body %></div>
-          <!--sidebar-->
-          <%= include('partials/sidebar') %>
-          <!--/sidebar-->
+          <div class="col-md-8"><%- body %></div>
+
+          <div class="col-md-4"><%-  include('partials/sidebar') %></div>
         </div>
       </div>
     </div>
+
     <div id="footer">
       <div class="container">
         <div class="row">
