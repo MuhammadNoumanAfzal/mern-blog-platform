@@ -13,6 +13,7 @@ import {
 } from "../controller/articleController.js";
 
 import {
+  dashboard,
   allUser,
   addUserPage,
   addUser,
@@ -36,6 +37,7 @@ import { allComments } from "../controller/commentsController.js";
 router.get("/", loginPage);
 router.post("/index", adminLogin);
 router.post("/logout", logout);
+router.get("/dashboard", dashboard);
 
 // Article CRUD Routes
 router.get("/article", allarticle);
