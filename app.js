@@ -4,6 +4,8 @@ import path from "path";
 import expressLayouts from "express-ejs-layouts";
 import session from "express-session";
 import flash from "connect-flash";
+import cookieParser from "cookie-parser";
+
 import dotenv from "dotenv";
 import { fileURLToPath } from "url";
 
@@ -21,6 +23,7 @@ const __dirname = path.dirname(__filename);
 // MIDDLEWARE
 app.use(express.json());
 app.use(expressLayouts);
+app.use(cookieParser());
 app.set("layout", "layout");
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));

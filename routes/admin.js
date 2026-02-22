@@ -1,7 +1,18 @@
 import express from "express";
 const router = express.Router();
 
-import { loginPage, adminLogin, logout } from "../controller/userController.js";
+import {
+  loginPage,
+  adminLogin,
+  logout,
+  dashboard,
+  allUser,
+  addUserPage,
+  addUser,
+  updateUserPage,
+  updateUser,
+  deleteUser,
+} from "../controller/userController.js";
 
 import {
   allarticle,
@@ -11,16 +22,6 @@ import {
   updateArticle,
   deleteArticle,
 } from "../controller/articleController.js";
-
-import {
-  dashboard,
-  allUser,
-  addUserPage,
-  addUser,
-  updateUserPage,
-  updateUser,
-  deleteUser,
-} from "../controller/userController.js";
 
 import {
   allCategory,
@@ -33,37 +34,40 @@ import {
 
 import { allComments } from "../controller/commentsController.js";
 
-//LOGIN ROUTES
-router.get("/", loginPage);
-router.post("/index", adminLogin);
-router.post("/logout", logout);
-router.get("/dashboard", dashboard);
+
+import isLoggedIn from "../middleware/isLoggedIn.js";
+
+// ✅ LOGIN ROUTES
+router.get("/login", loginPage); // /admin/login
+router.post("/login", adminLogin); // /admin/login
+router.get("/logout", logout); // /admin/logout
+router.get("/dashboard", isLoggedIn, dashboard); // /admin/dashboard
 
 // Article CRUD Routes
-router.get("/article", allarticle);
-router.get("/add-article", addArticlePage);
-router.post("/add-article", addArticle);
-router.get("/update-article/:id", updateArticlePage);
-router.post("/update-article/:id", updateArticle);
-router.get("/delete-article/:id", deleteArticle);
+router.get("/article", isLoggedIn, allarticle);
+router.get("/add-article", isLoggedIn, addArticlePage);
+router.post("/add-article", isLoggedIn, addArticle);
+router.get("/update-article/:id", isLoggedIn, updateArticlePage);
+router.post("/update-article/:id", isLoggedIn, updateArticle);
+router.get("/delete-article/:id", isLoggedIn, deleteArticle);
 
 // User CRUD Routes
-router.get("/users", allUser);
-router.get("/add-user", addUserPage);
-router.post("/add-user", addUser);
-router.get("/update-user/:id", updateUserPage);
-router.post("/update-user/:id", updateUser);
-router.get("/delete-user/:id", deleteUser);
+router.get("/users", isLoggedIn, allUser);
+router.get("/add-user", isLoggedIn, addUserPage);
+router.post("/add-user", isLoggedIn, addUser);
+router.get("/update-user/:id", isLoggedIn, updateUserPage);
+router.post("/update-user/:id", isLoggedIn, updateUser);
+router.delete("/delete-user/:id", isLoggedIn, deleteUser);
 
 // Category CRUD Routes
-router.get("/category", allCategory);
-router.get("/add-category", addCategoryPage);
-router.post("/add-category", addCategory);
-router.get("/update-category/:id", updateCategoryPage);
-router.post("/update-category/:id", updateCategory);
-router.get("/delete-category/:id", deleteCategory);
+router.get("/category", isLoggedIn, allCategory);
+router.get("/add-category", isLoggedIn, addCategoryPage);
+router.post("/add-category", isLoggedIn, addCategory);
+router.get("/update-category/:id", isLoggedIn, updateCategoryPage);
+router.post("/update-category/:id", isLoggedIn, updateCategory);
+router.get("/delete-category/:id", isLoggedIn, deleteCategory);
 
-//COMMENTS ROUTES
-router.get("/comments", allComments);
+// Comments
+router.get("/comments", isLoggedIn, allComments);
 
 export default router;
