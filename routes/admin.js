@@ -36,6 +36,7 @@ import { allComments } from "../controller/commentsController.js";
 
 
 import isLoggedIn from "../middleware/isLoggedIn.js";
+import isAdmin from "../middleware/isAdmin.js";
 
 // ✅ LOGIN ROUTES
 router.get("/login", loginPage); // /admin/login
@@ -52,20 +53,20 @@ router.post("/update-article/:id", isLoggedIn, updateArticle);
 router.get("/delete-article/:id", isLoggedIn, deleteArticle);
 
 // User CRUD Routes
-router.get("/users", isLoggedIn, allUser);
-router.get("/add-user", isLoggedIn, addUserPage);
-router.post("/add-user", isLoggedIn, addUser);
-router.get("/update-user/:id", isLoggedIn, updateUserPage);
-router.post("/update-user/:id", isLoggedIn, updateUser);
-router.delete("/delete-user/:id", isLoggedIn, deleteUser);
+router.get("/users", isLoggedIn, isAdmin, allUser);
+router.get("/add-user", isLoggedIn, isAdmin, addUserPage);
+router.post("/add-user", isLoggedIn, isAdmin, addUser);
+router.get("/update-user/:id", isLoggedIn, isAdmin, updateUserPage);
+router.post("/update-user/:id", isLoggedIn, isAdmin, updateUser);
+router.delete("/delete-user/:id", isLoggedIn, isAdmin, deleteUser);
 
 // Category CRUD Routes
-router.get("/category", isLoggedIn, allCategory);
-router.get("/add-category", isLoggedIn, addCategoryPage);
-router.post("/add-category", isLoggedIn, addCategory);
-router.get("/update-category/:id", isLoggedIn, updateCategoryPage);
-router.post("/update-category/:id", isLoggedIn, updateCategory);
-router.get("/delete-category/:id", isLoggedIn, deleteCategory);
+router.get("/category", isLoggedIn, isAdmin, allCategory);
+router.get("/add-category", isLoggedIn, isAdmin, addCategoryPage);
+router.post("/add-category", isLoggedIn, isAdmin, addCategory);
+router.get("/update-category/:id", isLoggedIn, isAdmin, updateCategoryPage);
+router.post("/update-category/:id", isLoggedIn, isAdmin, updateCategory);
+router.get("/delete-category/:id", isLoggedIn, isAdmin, deleteCategory);
 
 // Comments
 router.get("/comments", isLoggedIn, allComments);

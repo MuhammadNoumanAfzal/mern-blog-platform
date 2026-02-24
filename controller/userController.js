@@ -6,7 +6,7 @@ import jwt from "jsonwebtoken";
 // GET: /admin/login
 // =======================
 const loginPage = async (req, res) => {
-  return res.render("admin/login");
+  return res.render("admin/login", { role: req.role });
 };
 
 // =======================
@@ -76,7 +76,7 @@ const logout = async (req, res) => {
 // GET: /admin/dashboard
 // =======================
 const dashboard = async (req, res) => {
-  return res.render("admin/dashboard");
+  return res.render("admin/dashboard",{role: req.role, fullName: req.fullName});
 };
 
 // =======================
@@ -85,7 +85,7 @@ const dashboard = async (req, res) => {
 const allUser = async (req, res) => {
   try {
     const users = await userModel.find().lean();
-    return res.render("admin/users/index", { users });
+    return res.render("admin/users/index", { users, role: req.role });
   } catch (error) {
     console.log(error);
     return res.status(500).send("Internal Server Error");
@@ -96,7 +96,7 @@ const allUser = async (req, res) => {
 // GET: /admin/add-user
 // =======================
 const addUserPage = async (req, res) => {
-  return res.render("admin/users/create");
+  return res.render("admin/users/create", { role: req.role });
 };
 
 // =======================
@@ -144,7 +144,7 @@ const updateUserPage = async (req, res) => {
 
     if (!user) return res.status(404).send("User not found");
 
-    return res.render("admin/users/update", { user });
+    return res.render("admin/users/update", { user , role: req.role});
   } catch (error) {
     console.log(error);
     return res.status(500).send("Internal Server Error");
