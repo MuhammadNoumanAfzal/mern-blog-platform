@@ -34,7 +34,6 @@ import {
 
 import { allComments } from "../controller/commentsController.js";
 
-
 import isLoggedIn from "../middleware/isLoggedIn.js";
 import isAdmin from "../middleware/isAdmin.js";
 
@@ -66,7 +65,7 @@ router.get("/add-category", isLoggedIn, isAdmin, addCategoryPage);
 router.post("/add-category", isLoggedIn, isAdmin, addCategory);
 router.get("/update-category/:id", isLoggedIn, isAdmin, updateCategoryPage);
 router.post("/update-category/:id", isLoggedIn, isAdmin, updateCategory);
-router.get("/delete-category/:id", isLoggedIn, isAdmin, deleteCategory);
+router.delete("/delete-category/:id", isLoggedIn, isAdmin, deleteCategory);
 
 // Comments
 router.get("/comments", isLoggedIn, allComments);

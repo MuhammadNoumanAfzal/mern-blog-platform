@@ -22,9 +22,9 @@ const categorySchema = new mongoose.Schema(
   { timestamps: true },
 );
 
-categorySchema.pre("save", function (next) {
+categorySchema.pre("validate", function (next) {
   this.slug = slugify(this.categoryName, { lower: true });
-  next();
+  // next();
 });
 
 export default mongoose.model("Category", categorySchema);
