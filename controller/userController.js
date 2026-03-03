@@ -1,4 +1,7 @@
 import userModel from "../models/User.js";
+import newsModel from "../models/News.js";
+import categoryModel from "../models/Category.js";
+import settingModel from "../models/Setting.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
@@ -76,7 +79,53 @@ const logout = async (req, res) => {
 // GET: /admin/dashboard
 // =======================
 const dashboard = async (req, res) => {
-  return res.render("admin/dashboard",{role: req.role, fullName: req.fullName});
+  try {
+    const articleCount = await newsModel.countDocuments();
+    const usersCount = await userModel.countDocuments();
+    const categoryCount = await categoryModel.countDocuments();
+
+    return res.render("admin/dashboard", {
+      role: req.role,
+      fullName: req.fullName,
+      articleCount,
+      usersCount,
+      categoryCount,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send("Internal Server Error");
+  }
+};
+
+const setting = async (req, res) => {
+  return res.render("admin/setting", {
+    role: req.role,
+    fullName: req.fullName,
+  });
+};
+
+const saveSetting = async (req, res) => {
+  const { website_title, footer_description } = req.body;
+
+const website_logo = req.file ? req.file.filename : null;
+  try {
+    let setting = await settingModel.findOneAndUpdate({},
+      {
+        website_title,
+        website_logo,
+        footer_description,}
+      , { new: true, upsert: true });
+    return res.redirect("/admin/setting");
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send("Internal Server Error");
+  }
+  
+    );  
+
+
+
+
 };
 
 // =======================
@@ -144,7 +193,7 @@ const updateUserPage = async (req, res) => {
 
     if (!user) return res.status(404).send("User not found");
 
-    return res.render("admin/users/update", { user , role: req.role});
+    return res.render("admin/users/update", { user, role: req.role });
   } catch (error) {
     console.log(error);
     return res.status(500).send("Internal Server Error");
@@ -232,6 +281,8 @@ export {
   adminLogin,
   logout,
   dashboard,
+  setting,
+  saveSetting,
   allUser,
   addUserPage,
   addUser,

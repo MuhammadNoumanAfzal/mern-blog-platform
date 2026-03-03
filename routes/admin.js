@@ -6,6 +6,7 @@ import {
   adminLogin,
   logout,
   dashboard,
+  setting,
   allUser,
   addUserPage,
   addUser,
@@ -44,14 +45,21 @@ router.get("/login", loginPage); // /admin/login
 router.post("/login", adminLogin); // /admin/login
 router.get("/logout", logout); // /admin/logout
 router.get("/dashboard", isLoggedIn, dashboard); // /admin/dashboard
-
+router.get("/setting", isLoggedIn, isAdmin, setting);
+router.post(
+  "/save-setting",
+  isLoggedIn,
+  isAdmin,
+  upload.single("image"),
+  saveSetting,
+);
 // Article CRUD Routes
 router.get("/article", isLoggedIn, allarticle);
 router.get("/add-article", isLoggedIn, addArticlePage);
 router.post("/add-article", isLoggedIn, upload.single("newsImage"), addArticle);
 router.get("/update-article/:id", isLoggedIn, updateArticlePage);
 router.post("/update-article/:id", isLoggedIn, updateArticle);
-router.get("/delete-article/:id", isLoggedIn, deleteArticle);
+router.delete("/delete-article/:id", isLoggedIn, deleteArticle);
 
 // User CRUD Routes
 router.get("/users", isLoggedIn, isAdmin, allUser);

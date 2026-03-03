@@ -182,25 +182,25 @@
     ],
   });
 
-  // async function deleteUser(userId) {
-  //   if (!confirm("Are you sure you want to delete this user?")) return;
+  async function deleteArticle(articleId) {
+    if (!confirm("Are you sure you want to delete this article?")) return;
 
-  //   try {
-  //     const res = await fetch(`/admin/delete-user/${userId}`, { method: "DELETE" });
+    try {
+      const res = await fetch(`/admin/delete-article/${articleId}`, { method: "DELETE" });
 
-  //     if (!res.ok) {
-  //       const text = await res.text().catch(() => "");
-  //       alert("Failed to delete user" + (text ? `: ${text}` : ""));
-  //       return;
-  //     }
+      if (!res.ok) {
+        const text = await res.text().catch(() => "");
+        alert("Failed to delete article" + (text ? `: ${text}` : ""));
+        return;
+      }
 
-  //     alert("User deleted successfully");
-  //     table.deleteRow(userId); // works because index: "_id"
-  //   } catch (err) {
-  //     console.error("Error deleting user:", err);
-  //     alert("An error occurred while deleting the user");
-  //   }
-  // }
+      alert("Article deleted successfully");
+      table.deleteRow(articleId); // works because index: "_id"
+    } catch (err) {
+      console.error("Error deleting article:", err);
+      alert("An error occurred while deleting the article");
+    }
+   }
 </script>
 <%- contentFor('tabulatorCss') %>
 <link
