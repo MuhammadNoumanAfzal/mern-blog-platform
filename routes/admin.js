@@ -36,6 +36,8 @@ import { allComments } from "../controller/commentsController.js";
 
 import isLoggedIn from "../middleware/isLoggedIn.js";
 import isAdmin from "../middleware/isAdmin.js";
+import multer from "multer";
+import upload from "../middleware/multer.js";
 
 // ✅ LOGIN ROUTES
 router.get("/login", loginPage); // /admin/login
@@ -46,7 +48,7 @@ router.get("/dashboard", isLoggedIn, dashboard); // /admin/dashboard
 // Article CRUD Routes
 router.get("/article", isLoggedIn, allarticle);
 router.get("/add-article", isLoggedIn, addArticlePage);
-router.post("/add-article", isLoggedIn, addArticle);
+router.post("/add-article", isLoggedIn, upload.single("newsImage"), addArticle);
 router.get("/update-article/:id", isLoggedIn, updateArticlePage);
 router.post("/update-article/:id", isLoggedIn, updateArticle);
 router.get("/delete-article/:id", isLoggedIn, deleteArticle);
