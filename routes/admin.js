@@ -7,6 +7,7 @@ import {
   logout,
   dashboard,
   setting,
+  saveSetting,
   allUser,
   addUserPage,
   addUser,
@@ -50,7 +51,7 @@ router.post(
   "/save-setting",
   isLoggedIn,
   isAdmin,
-  upload.single("image"),
+  upload.single("website_logo"),
   saveSetting,
 );
 // Article CRUD Routes

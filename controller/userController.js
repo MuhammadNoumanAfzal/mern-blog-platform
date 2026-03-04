@@ -98,36 +98,37 @@ const dashboard = async (req, res) => {
 };
 
 const setting = async (req, res) => {
-  return res.render("admin/setting", {
+
+  const setting = await settingModel.findOne();
+
+ res.render("admin/setting", {
     role: req.role,
     fullName: req.fullName,
+    setting,
   });
 };
 
 const saveSetting = async (req, res) => {
   const { website_title, footer_description } = req.body;
+  const website_logo = req.file ? req.file.filename : null;
 
-const website_logo = req.file ? req.file.filename : null;
   try {
-    let setting = await settingModel.findOneAndUpdate({},
+    let setting = await settingModel.findOneAndUpdate(
+      {},
       {
         website_title,
         website_logo,
-        footer_description,}
-      , { new: true, upsert: true });
+        footer_description,
+      },
+      { new: true, upsert: true },
+    );
+
     return res.redirect("/admin/setting");
   } catch (error) {
     console.log(error);
     return res.status(500).send("Internal Server Error");
   }
-  
-    );  
-
-
-
-
 };
-
 // =======================
 // GET: /admin/users
 // =======================
