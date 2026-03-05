@@ -21,7 +21,7 @@
         <div class="row justify-content-center">
           <!-- LOGO -->
           <div class="col-md-3">
-            <a href="index.html" id="logo"
+            <a href="/" id="logo"
               ><img src="images/news.jpg" alt="Logo"
             /></a>
           </div>
@@ -36,11 +36,12 @@
         <div class="row">
           <div class="col-md-12">
             <ul class="menu">
-              <li><a href="index.html">Home</a></li>
-              <li><a href="category.html">Business</a></li>
-              <li><a href="category.html">Entertainment</a></li>
-              <li><a href="category.html">Sports</a></li>
-              <li><a href="category.html">Politics</a></li>
+              <li><a href="/">Home</a></li>
+              <% categories.forEach(category => { %>
+                <li><a href="/category/<%= category.slug %>"><%= category.categoryName %></a></li>
+              <% }) %>
+             
+         
             </ul>
           </div>
         </div>

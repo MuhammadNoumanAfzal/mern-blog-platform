@@ -1,47 +1,49 @@
  <!-- post-container -->
             <div class="post-container">
+              <% news.forEach((article) => { %>
               <div class="post-content">
                 <div class="row">
                   <div class="col-md-4">
-                    <a class="post-img" href="single.html"
-                      ><img src="images/post-format.jpg" alt=""
+                    <a class="post-img" href="/single/<%= article._id %>"
+                      ><img src="/uploads/<%= article.newsImage %>" alt=""
                     /></a>
                   </div>
                   <div class="col-md-8">
                     <div class="inner-content clearfix">
                       <h3>
-                        <a href="single.html"
-                          >Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit</a
+                        <a href="/single/<%= article._id %>"
+                          ><%= article.newsTitle %></a
                         >
                       </h3>
                       <div class="post-information">
                         <span>
                           <i class="fa fa-tags" aria-hidden="true"></i>
-                          <a href="category.html">PHP</a>
+                          <a href="/category/<%= article.category.slug %>"><%= article.category.categoryName %></a>
                         </span>
                         <span>
                           <i class="fa fa-user" aria-hidden="true"></i>
-                          <a href="author.html">Admin</a>
+                          <a href="/author/<%= article.author._id %>"><%= article.author.fullName %></a>
                         </span>
                         <span>
                           <i class="fa fa-calendar" aria-hidden="true"></i>
-                          01 Nov, 2025
+                          <% const date = new Date(article.createdAt); %>
+                          <%= date.toLocaleString('default', { year: 'numeric', month: 'long', day: 'numeric' }) %>
                         </span>
                       </div>
                       <p class="description">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        sed do eiusmod tempor incididunt ut labore et dolore
-                        magna aliqua....
+                        <%= article.newsDescription %>
                       </p>
-                      <a class="read-more pull-right" href="single.html"
+                      <a class="read-more pull-right" href="/single/<%= article._id %>"
                         >read more</a
                       >
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="post-content">
+                <% }); %> 
+
+
+              <!-- <div class="post-content">
                 <div class="row">
                   <div class="col-md-4">
                     <a class="post-img" href="single.html"
@@ -286,7 +288,7 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> -->
               <nav>
                 <ul class="pagination">
                   <li class="page-item disabled">
