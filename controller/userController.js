@@ -1,7 +1,7 @@
 import userModel from "../models/User.js";
 import newsModel from "../models/News.js";
 import categoryModel from "../models/Category.js";
-import settingModel from "../models/Setting.js";
+import settingModel from "../models/setting.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
